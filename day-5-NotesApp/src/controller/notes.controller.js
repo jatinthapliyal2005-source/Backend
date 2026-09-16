@@ -70,10 +70,24 @@ const deleteNotes=async(req,res)=>{
 
 
 }
+const singleUpdate=async(req,res)=>{
+    try{
+     let singleId=req.params.id
+     let body = req.body
+     let updatedSingleNote = await notesModel.findByIdAndUpdate(singleId,body,{new:true})
+     return res.status(202).json({
+        message:"get single note by patch",
+        data:updatedSingleNote
+     })
+    }catch(error){
+        console.log(error)
+    }
+}
 module.exports = {
     notesController,
     allNotesController,
     noteById,
     updateNote,
     deleteNotes,
+    singleUpdate,
 }
