@@ -25,7 +25,55 @@ const allNotesController=async(req,res)=>{
         console.log(error)
     }
 }
+
+const noteById=async(req,res)=>{
+    let noteId=req.params.id
+    let note = await notesModel.findById(noteId)
+    res.status(201).json({
+        data:note,
+        message:"ye ra note"
+    })
+}
+
+const updateNote=async(req,res)=>{
+    try{
+
+        let id = req.params.id
+        let body = req.body
+
+        let updatedNote = await notesModel.findByIdAndUpdate(id,body,{new: true,})
+
+        return res.status(202).json({
+            message:"updated vala hu",
+            updated:updatedNote
+        })
+
+    }
+    
+    catch(error){
+        console.log(error)
+    }
+}
+
+const deleteNotes=async(req,res)=>{
+
+   try{
+     let deletedId = req.params.id
+     let deletedNote=await notesModel.findByIdAndDelete(deletedId)
+     return res.status(201).json({
+        deleteNote:deletedNote
+     })
+
+   }catch(error){
+    console.log(error)
+   }
+
+
+}
 module.exports = {
     notesController,
     allNotesController,
+    noteById,
+    updateNote,
+    deleteNotes,
 }

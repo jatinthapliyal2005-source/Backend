@@ -3,7 +3,7 @@ const { default: mongoose } = require("mongoose")
 const connectDb=async(req,res)=>{
     try{
 
-        await mongoose.connect("mongodb://localhost:27017/notes-app")
+        await mongoose.connect(process.env.mongodb_uri)
         console.log('mongoDb connected successfully')
 
     }catch(error){
