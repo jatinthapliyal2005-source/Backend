@@ -1,28 +1,25 @@
 let express = require("express");
+let app = express()
 let connectDb=require("./config/db");
-const notesModel = require("./models/note.model");
-
-let app = express();
+const noteModel = require("./models/note.model");
 
 connectDb()
 app.use(express.json())
-
 app.get("/",(req,res)=>{
-    res.send("server ke andar hu")
+    res.send("MongoDb connected successfully")
 })
 
 app.post("/create",async(req,res)=>{
-    let {title,description} = req.body
-    let newNote =await notesModel.create({
+    let {title,description}= req.body
+    const newNote =await noteModel.create({
         title,
         description
     })
     res.send({
         success:true,
-        data:newNote,
-        message:"Successfully added"
+        message:"Notes uploaded successfully",
+        data:newNote
+
     })
 })
-
-
 module.exports=app
