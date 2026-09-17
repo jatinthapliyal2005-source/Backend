@@ -1,14 +1,13 @@
-const { default: mongoose } = require("mongoose")
+let mongoose = require("mongoose");
 
-const connectDb=async(req,res)=>{
-    try{
 
-        await mongoose.connect(process.env.mongodb_uri)
-        console.log('mongoDb connected successfully')
-
-    }catch(error){
-        console.log(error)
-    }
+const connectDb = async()=>{
+  try{
+    await  mongoose.connect("mongodb://localhost:27017/notes-application")
+    console.log("MongoDb connected Successfully")
+  }catch(error){
+    console.log(error)
+  }
 }
 
 module.exports=connectDb

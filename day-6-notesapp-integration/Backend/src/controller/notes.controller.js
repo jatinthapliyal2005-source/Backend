@@ -1,93 +1,107 @@
 const notesModel = require("../models/notes.model")
 
-const notesController = async(req,res)=>{
-    let {title,description} = req.body
-    let newNote = await notesModel.create({
-        title,
-        description
-    })
-    return res.status(201).json({
-        success:true,
-        message:"Notes is successfully added",
-        data:newNote
-    })
-}
 
-const allNotesController=async(req,res)=>{
+const notesController = async(req,res)=>{
     try{
-      let getNotes = await notesModel.find()
-      res.status(201).json({
-        success:true,
-        message:"aagye sare notes",
-        data:getNotes
-      })
+        let{title,description}=req.body
+        let newNote = await notesModel.create({
+            title,
+            description
+        })
+      return  res.status(200).json({
+            success:true,
+            message:"Note created Successfully",
+            data:newNote
+        })
+        
+      
     }catch(error){
         console.log(error)
     }
+
 }
 
-const noteById=async(req,res)=>{
-    let noteId=req.params.id
-    let note = await notesModel.findById(noteId)
-    res.status(201).json({
-        data:note,
-        message:"ye ra note"
-    })
-}
-
-const updateNote=async(req,res)=>{
-    try{
-
-        let id = req.params.id
-        let body = req.body
-
-        let updatedNote = await notesModel.findByIdAndUpdate(id,body,{new: true,})
-
-        return res.status(202).json({
-            message:"updated vala hu",
-            updated:updatedNote
-        })
-
-    }
-    
-    catch(error){
-        console.log(error)
-    }
-}
-
-const deleteNotes=async(req,res)=>{
-
+const allNotesController = async(req,res)=>{
    try{
-     let deletedId = req.params.id
-     let deletedNote=await notesModel.findByIdAndDelete(deletedId)
-     return res.status(201).json({
-        deleteNote:deletedNote
-     })
+     let getAllNotes= await notesModel.find()
+      res.status(200).json({
+        data:getAllNotes,
+        message:"ye re all notes"
+    })
+   }
 
-   }catch(error){
+   catch(error){
     console.log(error)
    }
 
 
-}
-const singleUpdate=async(req,res)=>{
-    try{
-     let singleId=req.params.id
-     let body = req.body
-     let updatedSingleNote = await notesModel.findByIdAndUpdate(singleId,body,{new:true})
-     return res.status(202).json({
-        message:"get single note by patch",
-        data:updatedSingleNote
-     })
-    }catch(error){
-        console.log(error)
+    
+    
+    
+
     }
-}
-module.exports = {
+
+    const getNoteById = async(req,res)=>{
+       try{
+         let noteId=req.params.id
+        let note=await notesModel.findById(noteId)
+        res.status(200).json({
+            message:"ye ra note by id",
+            data:note
+        })
+       }catch(error){
+        console.log(error)
+       }
+    }
+
+   const getDeleteNote = async(req,res)=>{
+       try{
+        let deleteId=req.params.id
+       let deletedNote = await notesModel.findByIdAndDelete(deleteId)
+       res.status(200).json({
+           message:"Note is deleted",
+           data:deletedNote
+       })
+       }catch(error){
+        console.log(error)
+       }
+   }
+
+   const getUpdatedId = async(req,res)=>{
+       try{
+           let updateId=req.params.id 
+           let body = req.body
+           let updatedId=await notesModel.findByIdAndUpdate(updateId,body,{new:true})
+           return res.status(200).json({
+               message:"update hogya h ",
+               data : updatedId,
+           })
+   
+       }catch(error){
+           console.log(error)
+       }
+   }
+
+    const getSingleUpdate = async(req,res)=>{
+       try{
+           let updateId=req.params.id 
+           let body = req.body
+           let updatedId=await notesModel.findByIdAndUpdate(updateId,body,{new:true})
+           return res.status(200).json({
+               message:"update hogya h ",
+               data : updatedId,
+           })
+   
+       }catch(error){
+           console.log(error)
+       }
+   }
+
+module.exports={
     notesController,
     allNotesController,
-    noteById,
-    updateNote,
-    deleteNotes,
-    singleUpdate,
+    getNoteById,
+    getDeleteNote,
+    getUpdatedId,
+    getSingleUpdate,
 }

@@ -1,16 +1,15 @@
-const mongoose= require("mongoose")
-let notesSchema = new mongoose.Schema({
+let mongoose = require("mongoose") 
+
+let notesSchema =new mongoose.Schema({
     title:{
         type:String,
-        required:true,
-        
+        required:true
     },
     description:{
         type:String,
         required:true,
-        minlength:[10,"length should atleast 10 characters"]
+        minlength:[20,"atleast 20 letters"]
     }
 })
-
 let notesModel= mongoose.model("notes",notesSchema)
 module.exports=notesModel

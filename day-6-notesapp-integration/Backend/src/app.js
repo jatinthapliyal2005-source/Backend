@@ -1,22 +1,23 @@
 let express = require("express");
 const connectDb = require("./config/db");
-const cors = require("cors")
 const notesModel = require("./models/notes.model");
 const notesController = require("./controller/notes.controller");
-const notesRoute=require("./routes/notes.routes")
-let app =express();
+let routerNotes = require("./routes/notes.routes")
+var cors = require('cors')
+let app = express();
+
 app.use(cors({
     origin:"http://localhost:5173"
 }))
-connectDb()
+
+
 app.use(express.json())
 
+connectDb()
+
 app.get("/",(req,res)=>{
-    res.send("Okay got it")
+    res.send("its working")
 })
 
-
-
-app.use("/notes",notesRoute)
-
+app.use("/notes",routerNotes)
 module.exports=app
