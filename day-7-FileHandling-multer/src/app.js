@@ -1,10 +1,11 @@
-const express = require("express");
-const app = express()
-const fileRoute = require("./routes/file.route")
+let express = require("express");
+let fileRoute=require("./routes/file.route")
+let app = express()
 
 app.get("/",(req,res)=>{
-    res.send("server chalra hai lawdo")
+    res.send("Api working")
 })
-app.use("/file",fileRoute)
 
-module.exports = app 
+
+app.use("/file",fileRoute)
+module.exports = app

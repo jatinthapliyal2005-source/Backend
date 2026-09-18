@@ -1,20 +1,14 @@
 const fileController = (req,res)=>{
     try{
-
-        let body = req.body
-        let file = req.file
-        console.log(body)
+        let data=req.body
+        let file =req.file
+        console.log(data)
         console.log(file)
-        
-        res.status(200).json({
-            message:"file sended successfully haaanjiii",
-            
-            
+      return  res.status(200).json({
+            message:"File uploaded successfully"
         })
-
     }catch(error){
         console.log(error)
     }
 }
-
 module.exports = fileController
